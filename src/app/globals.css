@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+:root {
+  --void: #08070b;
+  --studio: #111015;
+  --raised: #18171d;
+  --bone: #ece6db;
+  --mute: #9a9286;
+  --line: rgba(236, 230, 219, 0.14);
+  --spark: #ff5a32;
+  --gold: #c4a574;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-void: var(--void);
+  --color-studio: var(--studio);
+  --color-raised: var(--raised);
+  --color-bone: var(--bone);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-spark: var(--spark);
+  --color-gold: var(--gold);
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-plex);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--void);
+  color: var(--bone);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--spark);
+  color: var(--void);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(8, 7, 11, 0.55) 100%);
+}
+
+.spotlight {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    720px circle at var(--mx, 70%) var(--my, 20%),
+    rgba(255, 90, 50, 0.09),
+    transparent 42%
+  );
+  transition: background 0.15s linear;
+}
+
+.film-gate {
+  position: relative;
+}
+
+.film-gate::before,
+.film-gate::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 18px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 10px,
+    var(--bone) 10px 22px,
+    transparent 22px 36px
+  );
+  opacity: 0.22;
+  z-index: 2;
+}
+
+.film-gate::before {
+  left: 8px;
+}
+
+.film-gate::after {
+  right: 8px;
+}
+
+.portrait-grade {
+  filter: grayscale(0.28) contrast(1.08) saturate(0.78);
+  transition: filter 0.8s var(--ease);
+}
+
+.portrait-grade:hover {
+  filter: grayscale(0.05) contrast(1.06) saturate(0.95);
+}
+
+.link-line {
+  position: relative;
+  display: inline-block;
+}
+
+.link-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.link-line:hover::after,
+.link-line:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.spark-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--spark);
+  color: var(--void);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+
+.spark-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(255, 90, 50, 0.28);
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+}
+
+.cursor-ring {
+  pointer-events: none;
+  position: fixed;
+  z-index: 80;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 999px;
+  background: var(--spark);
+  mix-blend-mode: difference;
+  transition:
+    width 0.25s var(--ease),
+    height 0.25s var(--ease),
+    margin 0.25s var(--ease),
+    opacity 0.2s linear;
+}
+
+.cursor-ring.is-hover {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--bone);
+}
+
+.has-cursor {
+  cursor: none;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  z-index: 70;
+  background: var(--spark);
+  transform-origin: left;
+}
+
+@media (pointer: coarse) {
+  .cursor-ring {
+    display: none;
+  }
+
+  .has-cursor {
+    cursor: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .spotlight,
+  .spark-btn,
+  .portrait-grade,
+  .link-line::after,
+  .cursor-ring {
+    transition: none;
+  }
+}

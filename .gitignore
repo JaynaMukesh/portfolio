@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local-only (resume reference, not for the live site)
+.local/
+/Jayna-Mukesh-Resume.pdf
+public/Jayna-Mukesh-Resume.pdf
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

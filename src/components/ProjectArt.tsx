@@ -1,49 +1,29 @@
 import type { FeaturedProject } from "@/data/site";
 
-const tones: Record<FeaturedProject["tone"], string> = {
-  ember: "from-[#3a120c] via-[#1a0c0a] to-[#08070b]",
-  gold: "from-[#2a2114] via-[#14110c] to-[#08070b]",
-  bone: "from-[#2a2420] via-[#141210] to-[#08070b]",
-  mute: "from-[#1a1c22] via-[#101218] to-[#08070b]",
-};
-
-export function ProjectArt({
-  project,
-}: {
-  project: FeaturedProject;
-}) {
+export function ProjectArt({ project }: { project: FeaturedProject }) {
   return (
-    <div
-      className={`relative flex h-full min-h-[18rem] items-center justify-center overflow-hidden bg-linear-to-br ${tones[project.tone]}`}
-    >
-      {project.slug === "noforma" && <NoFormaArt />}
-      {project.slug === "mentormesh" && <MeshArt />}
-      {project.slug === "oasis" && <OasisArt />}
-      {project.slug === "silence" && <SilenceArt />}
-      <span className="absolute right-5 bottom-4 font-mono text-[10px] tracking-[0.22em] text-bone/40 uppercase">
-        {project.kicker}
+    <figure className="relative overflow-hidden border-[3px] border-double border-ink/25 bg-paper-2">
+      <p className="running-head absolute top-3 left-4">Plate {project.plate}</p>
+      <div className="flex min-h-[16rem] items-center justify-center px-6 pt-10 pb-16">
+        {project.slug === "noforma" && <NoFormaArt />}
+        {project.slug === "mentormesh" && <MeshArt />}
+        {project.slug === "oasis" && <OasisArt />}
+        {project.slug === "silence" && <SilenceArt />}
+      </div>
+      <span className="plate-gate">
+        <span>{project.kicker}</span>
+        <span>{project.gate}</span>
       </span>
-    </div>
+    </figure>
   );
 }
 
 function NoFormaArt() {
   return (
-    <svg viewBox="0 0 320 220" className="h-[70%] w-[80%] opacity-90" aria-hidden>
-      <rect x="70" y="28" width="180" height="140" rx="18" fill="none" stroke="#ece6db" strokeOpacity="0.35" />
-      <circle cx="160" cy="88" r="28" fill="none" stroke="#ff5a32" strokeWidth="1.4" />
-      <path d="M118 148c12-22 72-22 84 0" fill="none" stroke="#ece6db" strokeOpacity="0.4" />
-      {[0, 1, 2, 3, 4].map((i) => (
-        <line
-          key={i}
-          x1="0"
-          x2="320"
-          y1={40 + i * 36}
-          y2={40 + i * 36}
-          stroke="#ece6db"
-          strokeOpacity="0.08"
-        />
-      ))}
+    <svg viewBox="0 0 320 220" className="h-[70%] w-[80%]" aria-hidden>
+      <rect x="70" y="28" width="180" height="140" rx="18" fill="none" stroke="#1c1610" strokeOpacity="0.45" />
+      <circle cx="160" cy="88" r="28" fill="none" stroke="#7a2e2a" strokeWidth="1.4" />
+      <path d="M118 148c12-22 72-22 84 0" fill="none" stroke="#1c1610" strokeOpacity="0.4" />
     </svg>
   );
 }
@@ -67,13 +47,13 @@ function MeshArt() {
             y1={y}
             x2={x2}
             y2={y2}
-            stroke="#c4a574"
-            strokeOpacity="0.28"
+            stroke="#1c1610"
+            strokeOpacity="0.25"
           />
         )),
       )}
       {nodes.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i === 2 ? 7 : 4} fill={i === 2 ? "#ff5a32" : "#c4a574"} />
+        <circle key={i} cx={x} cy={y} r={i === 2 ? 7 : 4} fill={i === 2 ? "#7a2e2a" : "#1c1610"} />
       ))}
     </svg>
   );
@@ -89,11 +69,11 @@ function OasisArt() {
           cy="110"
           r={r}
           fill="none"
-          stroke="#ece6db"
-          strokeOpacity={0.45 - r / 280}
+          stroke="#1c1610"
+          strokeOpacity={0.4 - r / 320}
         />
       ))}
-      <circle cx="160" cy="110" r="6" fill="#ff5a32" />
+      <circle cx="160" cy="110" r="6" fill="#7a2e2a" />
     </svg>
   );
 }
@@ -109,8 +89,8 @@ function SilenceArt() {
           y={110 - h / 2}
           width="8"
           height={h}
-          fill={i === 5 ? "#ff5a32" : "#ece6db"}
-          opacity={0.35 + (i % 3) * 0.12}
+          fill={i === 5 ? "#7a2e2a" : "#1c1610"}
+          opacity={0.28 + (i % 3) * 0.1}
         />
       ))}
     </svg>

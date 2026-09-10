@@ -20,11 +20,9 @@ export function Cursor() {
     const move = (e: PointerEvent) => {
       el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
     };
-
     const over = (e: PointerEvent) => {
       const target = e.target as HTMLElement | null;
-      const hit = target?.closest("a, button");
-      el.classList.toggle("is-hover", Boolean(hit));
+      el.classList.toggle("is-hover", Boolean(target?.closest("a, button")));
     };
 
     window.addEventListener("pointermove", move, { passive: true });
@@ -37,5 +35,5 @@ export function Cursor() {
   }, [on]);
 
   if (!on) return null;
-  return <div ref={ring} className="cursor-ring" aria-hidden />;
+  return <div ref={ring} className="cursor-ink" aria-hidden />;
 }

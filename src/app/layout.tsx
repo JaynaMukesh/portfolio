@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, IBM_Plex_Mono, Outfit } from "next/font/google";
+import { Cormorant_Garamond, IBM_Plex_Mono, Source_Serif_4 } from "next/font/google";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -10,10 +10,11 @@ const display = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 
-const sans = Outfit({
-  variable: "--font-outfit",
+const serif = Source_Serif_4({
+  variable: "--font-source",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
 });
 
 const plex = IBM_Plex_Mono({
@@ -22,22 +23,22 @@ const plex = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
-const title = `${site.name} — ${site.role}, ${site.company}`;
-const description = `${site.positioning} Portfolio at ${site.url.replace("https://", "")}.`;
+const title = `${site.name} — A working copy`;
+const description =
+  "Software engineer at NatWest. Projects, hackathon wins, a patent, and a habit of finishing books. Chennai.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: title,
-    template: `%s · ${site.brand}`,
+    template: `%s · ${site.press}`,
   },
   description,
   keywords: [
     "Jayna Mukesh",
     "Software Engineer",
     "NatWest",
-    "full-stack",
-    "hackathon",
+    "portfolio",
     "Chennai",
   ],
   authors: [{ name: site.name, url: site.url }],
@@ -47,17 +48,10 @@ export const metadata: Metadata = {
     title,
     description,
     url: site.url,
-    siteName: site.brand,
+    siteName: site.press,
     locale: "en_IN",
     type: "website",
-    images: [
-      {
-        url: site.portrait,
-        width: 800,
-        height: 1000,
-        alt: site.name,
-      },
-    ],
+    images: [{ url: site.portrait, width: 800, height: 1000, alt: site.name }],
   },
   twitter: {
     card: "summary_large_image",
@@ -77,7 +71,11 @@ const jsonLd = {
   jobTitle: site.role,
   worksFor: { "@type": "Organization", name: site.company },
   email: site.email,
-  address: { "@type": "PostalAddress", addressLocality: site.location, addressCountry: "IN" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: site.location,
+    addressCountry: "IN",
+  },
   sameAs: [site.links.github, site.links.linkedin, site.links.x],
   alumniOf: { "@type": "CollegeOrUniversity", name: site.education.school },
 };
@@ -86,9 +84,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${plex.variable} h-full`}
+      className={`${display.variable} ${serif.variable} ${plex.variable} h-full`}
     >
-      <body className="min-h-full bg-void antialiased">
+      <body className="gutter min-h-full bg-paper antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

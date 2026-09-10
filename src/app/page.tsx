@@ -1,28 +1,39 @@
-import { Contact } from "@/components/Contact";
+import { Author } from "@/components/Author";
+import { Bookmark } from "@/components/Bookmark";
+import { Citations } from "@/components/Citations";
+import { Colophon } from "@/components/Colophon";
+import { Contents } from "@/components/Contents";
+import { Cover } from "@/components/Cover";
 import { Cursor } from "@/components/Cursor";
-import { Hero } from "@/components/Hero";
-import { Intro } from "@/components/Intro";
-import { Nav } from "@/components/Nav";
-import { Proof } from "@/components/Proof";
-import { Spotlight } from "@/components/Spotlight";
-import { Studio } from "@/components/Studio";
-import { Work } from "@/components/Work";
+import { Folio } from "@/components/Folio";
+import { Preface } from "@/components/Preface";
+import { Present } from "@/components/Present";
+import { Stories } from "@/components/Stories";
+import { Toc } from "@/components/Toc";
+import { site } from "@/data/site";
 
 export default function Home() {
   return (
     <>
-      <div className="grain" aria-hidden />
-      <div className="vignette" aria-hidden />
-      <Spotlight />
+      <div className="paper-grain" aria-hidden />
       <Cursor />
-      <Intro />
-      <Nav />
+      <Bookmark />
+      <Folio />
+      <Contents />
       <main className="relative z-10">
-        <Hero />
-        <Work />
-        <Proof />
-        <Studio />
-        <Contact />
+        <Cover />
+        <div className="endpaper">
+          <p className="font-display text-xl tracking-normal italic sm:text-2xl">
+            {site.epigraphs.contents}
+          </p>
+        </div>
+        <Toc />
+        <Preface />
+        <Present />
+        <Stories />
+        <Citations />
+        <Author />
+        <Colophon />
       </main>
     </>
   );
